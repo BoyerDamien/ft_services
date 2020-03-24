@@ -1,0 +1,9 @@
+server
+{
+    listen localhost:80;
+    server_name nginx;
+
+    location /{
+        proxy_pass http://etc...
+    }
+}
