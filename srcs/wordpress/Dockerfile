@@ -12,7 +12,7 @@ RUN apk add openrc curl lighttpd php7-common php7-iconv php7-json php7-gd php7-c
 #####################################################################################################
 #                               Installation of lighttpd server                                     #
 #####################################################################################################
-RUN sed -i '/#   include "mod_fastcgi.conf"/ s/# *//' /etc/lighttpd/lighttpd.conf 
+RUN sed -i '/#   include "mod_fastcgi.conf"/ s/# *//' /etc/lighttpd/lighttpd.conf
 RUN sed -i 's/usr\/bin\/php-cgi/usr\/bin\/php-cgi7/g' /etc/lighttpd/mod_fastcgi.conf
 RUN sed -i 's/\/run\/lighttpd.pid/\/run\/lighttpd\/php-fast-cgi.socket/g' /etc/lighttpd/lighttpd.conf
 RUN mkdir /var/run/lighttpd && touch /var/run/lighttpd/php-fastcgi.socket
@@ -32,3 +32,5 @@ RUN ln -s /var/www/wordpress/ /var/www/localhost/htdocs/wordpress
 RUN rm latest.tar.gz
 
 EXPOSE 80
+
+CMD lighttpd -D -f /etc/lighttpd/lighttpd.conf

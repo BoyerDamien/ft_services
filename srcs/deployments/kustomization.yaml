@@ -1,0 +1,3 @@
+resources:
+    - mysql-dep.yaml
+    - wordpress-dep.yaml
