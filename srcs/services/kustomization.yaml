@@ -1,0 +1,5 @@
+resources:
+  - nginx-svc.yaml
+  - mysql-svc.yaml
+  - wordpress-svc.yaml
+  - phpmyadmin-svc.yaml

@@ -1,30 +1,3 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: wordpress
-  labels:
-    app: wordpress
-spec:
-  ports:
-    - port: 80
-  selector:
-    app: wordpress
-    tier: frontend
-  type: LoadBalancer
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: wp-pv-claim
-  labels:
-    app: wordpress
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 20Gi
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -35,34 +8,70 @@ spec:
   selector:
     matchLabels:
       app: wordpress
-      tier: frontend
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
         app: wordpress
-        tier: frontend
     spec:
       containers:
-      - image: wordpress
-        name: wordpress
-        imagePullPolicy: Never
-        env:
-        - name: WORDPRESS_DB_HOST
-          value: mysql
-        - name: WORDPRESS_DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mysql-pass
-              key: password.txt
-        ports:
-        - containerPort: 80
-          name: wordpress
-        volumeMounts:
-        - name: wordpress-persistent-storage
-          mountPath: /var/www/html
+        - name: wordpress
+          image: wordpress
+          imagePullPolicy: Never
+          env:
+            - name: WP_DB_NAME
+              value: wordpress
+            - name: WP_DB_USERNAME
+              value: root
+            - name: WP_DB_HOST
+              value: 127.0.0.1:3306
+            - name: WP_DB_PASSWORD
+              value: password
+          ports:
+            - containerPort: 5050
+              name: http
+        - name: nginx
+          image: nginx
+          imagePullPolicy: Never
+          env:
+          - name: SSH_USER
+            value: root
+          - name: SSH_PASSWORD
+            value: password
+          ports:
+            - name: ssh
+              containerPort: 22
+            - name: http
+              containerPort: 80
+            - name: https
+              containerPort: 443
+          volumeMounts:
+          - name: nginx-conf
+            mountPath: /etc/nginx/nginx.conf
+            subPath: nginx.conf
+        - name: mysql
+          image: mysql
+          imagePullPolicy: Never
+          env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db-secret
+                key: password
+          ports:
+          - containerPort: 3306
+          volumeMounts:
+          - name: mysql-claim
+            mountPath: /var/lib/mysql
+        - name: phpmyadmin
+          image: phpmyadmin
+          imagePullPolicy: Never
+          ports:
+            - name: http
+              containerPort: 5000
       volumes:
-      - name: wordpress-persistent-storage
+      - name: nginx-conf
+        configMap:
+          name: nginx-conf
+      - name: mysql-claim
         persistentVolumeClaim:
-          claimName: wp-pv-claim
+          claimName: mysql-claim
