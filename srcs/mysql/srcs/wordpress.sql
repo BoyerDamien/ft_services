@@ -1,3 +1,3 @@
-CREATE USER 'root'@'%' IDENTIFIED BY 'some_pass';
+CREATE USER 'root'@'%' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON wordpress.* TO 'root'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;

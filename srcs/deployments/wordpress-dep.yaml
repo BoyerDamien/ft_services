@@ -17,18 +17,12 @@ spec:
         - name: wordpress
           image: wordpress
           imagePullPolicy: Never
-          env:
-            - name: WP_DB_NAME
-              value: wordpress
-            - name: WP_DB_USERNAME
-              value: root
-            - name: WP_DB_HOST
-              value: 127.0.0.1:3306
-            - name: WP_DB_PASSWORD
-              value: password
           ports:
             - containerPort: 5050
               name: http
+          volumeMounts:
+          - name: wp-claim
+            mountPath: /var/lib/mysql
         - name: nginx
           image: nginx
           imagePullPolicy: Never
@@ -75,3 +69,6 @@ spec:
       - name: mysql-claim
         persistentVolumeClaim:
           claimName: mysql-claim
+      - name: wp-claim
+        persistentVolumeClaim:
+          claimName: wp-claim

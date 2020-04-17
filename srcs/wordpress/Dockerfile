@@ -7,7 +7,7 @@ USER root
 #                                       Packages intalation                                         #
 #####################################################################################################
 RUN apk update && apk upgrade
-RUN apk add openrc curl lighttpd php7 php7-mysqli php7-openssl php7-pdo php7-mcrypt php7-session php7-cgi php7-xml php7-zlib php7-json --no-cache
+RUN apk add openrc curl lighttpd php7-phar php7 php-mbstring php7-mysqli php7-openssl php7-pdo php7-mcrypt php7-session php7-cgi php7-xml php7-zlib php7-json --no-cache
 
 #####################################################################################################
 #                               Installation of lighttpd server                                     #
@@ -25,17 +25,11 @@ RUN rc-update add lighttpd default
 #####################################################################################################
 #                               Installation of wordpress                                           #
 #####################################################################################################
-RUN mkdir -p /var/www/
-RUN curl -O https://wordpress.org/latest.tar.gz && tar xzvf latest.tar.gz && mv ./wordpress ./var/www
-ADD ./srcs/wp-config.php /var/www/wordpress/wp-config.php
-RUN rm latest.tar.gz
-
-RUN chmod -R  755 /var/www/
-RUN chmod 644 /var/www/wordpress/wp-config.php
-#RUN ln -s /var/www/wordpress/ /var/www/localhost/htdocs/wordpress
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+RUN chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
+RUN mkdir -p /var/www/wordpress  && wp cli update && wp core download --path=/var/www/wordpress
+RUN apk add mysql mysql-client openrc --no-cache
 
 EXPOSE 5050
 
-VOLUME [ "/var/www/localhost" ]
-
-CMD lighttpd -D -f /etc/lighttpd/lighttpd.conf
+CMD  lighttpd -D -f /etc/lighttpd/lighttpd.conf & wait

@@ -2,7 +2,6 @@
 if [ -d "/var/lib/mysql/mysql" ]
 then
     echo 'SQL database already exists'
-    rm /run/mysqld/mysqld.sock
 else
     echo 'Create database'
     mysql_install_db --user=root --datadir=/var/lib/mysql
