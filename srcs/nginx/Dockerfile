@@ -24,6 +24,6 @@ RUN mkdir -p /etc/ssl/certs && mkdir -p /etc/ssl/private \
 && openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj '/C=FR/ST=75/L=Paris/O=42/CN=localhost' \
 -keyout /etc/ssl/private/localhost.key -out /etc/ssl/certs/localhost.crt
 
-EXPOSE 80 443 22
+EXPOSE 80 443 22 5001
 
 ENTRYPOINT  nginx -g 'pid /tmp/nginx.pid; daemon off;'

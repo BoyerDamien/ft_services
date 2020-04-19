@@ -34,7 +34,8 @@ $cfg['Servers'][$i]['connect_type'] = 'tcp';
 $cfg['Servers'][$i]['compress'] = false;
 $cfg['Servers'][$i]['AllowNoPassword'] = true;
 $cfg['Servers'][$i]['extension'] = 'mysqli';
-
+$cfg['AllowThirdPartyFraming'] = true;
+$cfg['ForceSSL'] = false;
 
 /**
  * phpMyAdmin configuration storage settings.

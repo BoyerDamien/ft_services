@@ -27,7 +27,7 @@ RUN rc-update add lighttpd default
 #####################################################################################################
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 RUN chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
-RUN mkdir -p /var/www/wordpress  && wp cli update && wp core download --path=/var/www/wordpress
+RUN mkdir -p /var/www/wordpress  && wp cli update
 RUN apk add mysql mysql-client openrc --no-cache
 
 EXPOSE 5050

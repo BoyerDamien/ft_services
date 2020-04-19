@@ -13,9 +13,13 @@ spec:
       protocol: TCP
       name: https
       targetPort: 443
-    - name: http
+    - name: wordpress
       port: 80
       targetPort: 80
+      protocol: TCP
+    - name: pma
+      port: 5001
+      targetPort: 5001
       protocol: TCP
   selector:
     app: wordpress

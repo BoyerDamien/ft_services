@@ -6,7 +6,7 @@ USER root
 #                                       Packages intalation                                         #
 #####################################################################################################
 RUN apk update && apk upgrade
-RUN apk add openrc wget lighttpd phpmyadmin php-mbstring php-gettext php7-cgi --no-cache
+RUN apk add openrc wget lighttpd phpmyadmin php-mbstring php-gettext php7-cgi php7-mysqli php7-openssl php7-pdo php7-mcrypt php7-session php7-xml php7-zlib php7-json --no-cache
 
 #####################################################################################################
 #                               Installation of lighttpd server                                     #
@@ -27,7 +27,7 @@ RUN rc-update add lighttpd default
 RUN chmod -R  755 /usr/share/webapps/
 RUN chmod 644 /usr/share/webapps/phpmyadmin/config.inc.php
 ADD ./config.inc.php /usr/share/webapps/phpmyadmin/config.inc.php
-#RUN ln -s /usr/share/webapps/phpmyadmin/ /var/www/localhost/htdocs/phpmyadmin
+
 
 EXPOSE 5000
 

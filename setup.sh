@@ -62,10 +62,26 @@ done
 
 display_process_title "Pods are ready"
 
+
+# Install database
+display_process_title "Installation of the database" && sleep 5s
+mysql_id=$(docker ps | grep mysql | cut -d\  -f1)
+docker exec $mysql_id mysql_install_db --user=root --datadir=/var/lib/mysql
+docker exec $mysql_id rc-service mariadb start 
+docker exec $mysql_id mysqladmin -u root password 'password'
+docker exec $mysql_id mysqladmin -u root create wordpress
+docker exec $mysql_id rc-service mariadb stop
+
 # Install wordpress
-display_process_title "Installation of wordpress" && sleep 5s
+display_process_title "Installation of wordpress"
 wordpress_id=$(docker ps | grep wordpress_wordpress | cut -d\  -f1)
+docker exec $wordpress_id wp core download --path=/var/www/wordpress
 docker exec $wordpress_id wp config create --dbuser=$WORDPRESS_ADMIN --dbname=$DB_NAME --dbhost=$DB_HOST --dbpass=$WORDPRESS_PASSWORD --path=/var/www/wordpress
 docker exec $wordpress_id wp core install --admin_user=$WORDPRESS_ADMIN --admin_password=$WORDPRESS_PASSWORD --admin_email=$WORDPRESS_MAIL --path=/var/www/wordpress --url=$(minikube service wordpress --url) --title=ft_services
+
+# Install phpmyadmin
+display_process_title 'Installation of phpmyadmin'
+phpmyadmin_id=$(docker ps | grep phpmyadmin | cut -d\  -f1)
+docker exec $phpmyadmin_id echo "$cfg['PmaAbsoluteUri'] = "$(minikube service phpmyadmin --url)";">>/usr/share/webapps/phpmyadmin/config.inc.php
 
 
