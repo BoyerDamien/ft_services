@@ -7,7 +7,7 @@ spec:
   ports:
     - name: http
       port: 5000
-      targetPort: 5000
+      targetPort: 443
       protocol: TCP
   selector:
-    app: wordpress
+    run: phpmyadmin

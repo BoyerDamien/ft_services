@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    run: mysql
+spec:
+  selector:
+    matchLabels:
+      run: mysql
+  template:
+    metadata:
+      labels:
+        run: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql
+          imagePullPolicy: Never
+          ports:
+            - name: tcp
+              containerPort: 3306
+          volumeMounts:
+            - name: mysql-claim
+              mountPath: /var/lib/mysql
+          lifecycle:
+            postStart:
+              exec:
+                command: ["./init.sh"]
+      volumes:
+        - name: mysql-claim
+          persistentVolumeClaim:
+            claimName: mysql-claim

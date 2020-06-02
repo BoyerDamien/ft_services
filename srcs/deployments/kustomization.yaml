@@ -1,5 +1,8 @@
 resources:
-    - secret.yaml
-    - wordpress-dep.yaml
-    - ingress-dep.yaml
     - nginx-config-map.yaml
+    - secret.yaml
+    - ingress-dep.yaml
+    - mysql-dep.yaml
+    - wp-dep.yaml
+    - pma-dep.yaml
+

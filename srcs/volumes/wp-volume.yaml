@@ -3,7 +3,7 @@ kind: PersistentVolume
 metadata:
   name: wp-volume
   labels:
-    app: wordpress
+    run: wordpress
 spec:
   storageClassName: manual
   capacity:
