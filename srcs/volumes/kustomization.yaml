@@ -1,5 +1,7 @@
 resources:
     - mysql-volume.yaml
-    - wp-volume.yaml
     - mysql-claim.yaml
+    - wp-volume.yaml
     - wp-claim.yaml
+    - pma-claim.yaml
+    - pma-volume.yaml

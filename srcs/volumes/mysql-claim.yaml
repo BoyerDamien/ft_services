@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: mysql-claim
   labels:
-    app: wordpress
+    run: mysql
 spec:
   storageClassName: manual
   accessModes:

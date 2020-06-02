@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phpmyadmin
+  labels:
+    run: phpmyadmin
+    server: nginx
+spec:
+  selector:
+    matchLabels:
+      run: phpmyadmin
+      server: nginx
+  template:
+    metadata:
+      labels:
+        run: phpmyadmin
+        server: nginx
+    spec:
+      containers:
+        - name: phpmyadmin
+          image: phpmyadmin
+          imagePullPolicy: Never
+          volumeMounts:
+              - name: pma-claim
+                mountPath: /var/www/phpmyadmin
+          lifecycle:
+            postStart:
+              exec:
+                command: ["./init.sh"]
+        - name: nginx
+          image: nginx
+          imagePullPolicy: Never
+          ports:
+            - name: http
+              containerPort: 80
+            - name: https
+              containerPort: 443
+          volumeMounts:
+              - name: pma-claim
+                mountPath: /var/www/phpmyadmin
+              - name: nginx-conf
+                mountPath: /etc/nginx/nginx.conf
+                subPath: nginx.conf
+      volumes:
+        - name: nginx-conf
+          configMap:
+            name: nginx-conf
+        - name: pma-claim
+          persistentVolumeClaim:
+            claimName: pma-claim

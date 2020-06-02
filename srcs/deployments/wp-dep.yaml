@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress
+  labels:
+    run: wordpress
+    server: nginx
+spec:
+  selector:
+    matchLabels:
+      run: wordpress
+      server: nginx
+  template:
+    metadata:
+      labels:
+        run: wordpress
+        server: nginx
+    spec:
+      containers:
+        - name: wordpress
+          image: wordpress
+          imagePullPolicy: Never
+          volumeMounts:
+              - name: wp-claim
+                mountPath: /var/www/wordpress
+        - name: nginx
+          image: nginx
+          imagePullPolicy: Never
+          ports:
+            - name: http
+              containerPort: 80
+            - name: https
+              containerPort: 443
+          volumeMounts:
+              - name: wp-claim
+                mountPath: /var/www/wordpress
+              - name: nginx-conf
+                mountPath: /etc/nginx/nginx.conf
+                subPath: nginx.conf
+      volumes:
+        - name: nginx-conf
+          configMap:
+            name: nginx-conf
+        - name: wp-claim
+          persistentVolumeClaim:
+            claimName: wp-claim

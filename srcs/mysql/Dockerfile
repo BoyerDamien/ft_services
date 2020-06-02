@@ -9,6 +9,8 @@ RUN apk add mysql mysql-client openrc --no-cache
 
 ADD ./srcs/start.sh ./start.sh
 ADD srcs/my.cnf /etc/mysql/my.cnf
+ADD ./srcs/table.sql ./table.sql
+ADD ./srcs/init.sh ./init.sh
 
 RUN mkdir /run/openrc && touch /run/openrc/softlevel
 

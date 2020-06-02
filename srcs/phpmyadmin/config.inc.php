@@ -35,8 +35,8 @@ $cfg['Servers'][$i]['compress'] = false;
 $cfg['Servers'][$i]['AllowNoPassword'] = true;
 $cfg['Servers'][$i]['extension'] = 'mysqli';
 $cfg['AllowThirdPartyFraming'] = true;
-$cfg['ForceSSL'] = false;
 
+$cfg['PmaAbsoluteUri'] = 'http://localhost:5000/usr/share/webapps/phpmyadmin/';
 /**
  * phpMyAdmin configuration storage settings.
  */

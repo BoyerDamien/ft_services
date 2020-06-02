@@ -4,63 +4,34 @@ metadata:
   name: nginx-conf
 data:
   nginx.conf: |-
-    worker_processes  1;
-
-    error_log  /var/log/nginx/error.log warn;
-
+    user                            root;
+    worker_processes                auto;
+    error_log                       /var/log/nginx/error.log warn;
     events {
-        worker_connections  1024;
+        worker_connections          1024;
     }
+    http{
+      include                         /etc/nginx/mime.types;
+      server {
+        listen 80;
+        listen [::]:80;
+        listen 443 ssl;
+        listen [::]:443 ssl ;
 
-    http {
-        include       /etc/nginx/mime.types;
-        default_type  application/octet-stream;
+        ssl_certificate /etc/ssl/certs/ft_services.crt;
+        ssl_certificate_key /etc/ssl/private/ft_services.key;
+        
+        server_name ft_services www.ft_services ft_services.com;
 
-        sendfile        on;
-        keepalive_timeout  65;
+        index index.html index.htm index.nginx-debian.html index.php;
+        
+        root /var/www;
 
-        upstream wordpress{
-          server localhost:5050;
-        }
 
-        upstream phpmyadmin{
-          server localhost:5000;
-        }
-
-        server {
-            listen 80 default_server;
-            index index.php index.html index.htm;
-            error_log /var/log/nginx/error.log;
-            access_log /var/log/nginx/access.log;
-
-            location / {
-              proxy_set_header        Host            $host;
-              proxy_set_header        X-Real-IP       $remote_addr;
-              proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-              proxy_set_header        X-Forwarded-Proto $scheme;
-              proxy_pass http://wordpress;
-              proxy_redirect off;
-            }
-        }
-
-        server {
-            listen 5001;
-            index index.php index.html index.htm;
-            error_log /var/log/nginx/error.log;
-            access_log /var/log/nginx/access.log;
-
-            location / {
-              proxy_set_header        Host            $host;
-              proxy_set_header        X-Real-IP       $remote_addr;
-              proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-              proxy_set_header        X-Forwarded-Proto https;
-              proxy_buffers 10 512k;
-              proxy_buffer_size 556k;
-              proxy_send_timeout 7m;
-              proxy_read_timeout 7m;
-              proxy_connect_timeout 7m;
-              proxy_pass http://phpmyadmin;
-              proxy_redirect off;
-            }
-        }
+        location ~ \.php$ {
+            fastcgi_pass      127.0.0.1:9000;
+            fastcgi_index     index.php;
+            include           fastcgi.conf;
+          }
+      }
     }
