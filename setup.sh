@@ -65,5 +65,7 @@ done
 display_process_title "Installation of wordpress"
 wordpress_id=$(docker ps | grep wordpress_wordpress | cut -d\  -f1)
 docker exec $wordpress_id wp core download --path=/var/www/wordpress
-docker exec $wordpress_id wp config create --dbuser=$WORDPRESS_ADMIN --dbname=$DB_NAME --dbhost=$DB_HOST --dbpass=$WORDPRESS_PASSWORD --path=/var/www/wordpress
-docker exec $wordpress_id wp core install --admin_user=$WORDPRESS_ADMIN --admin_password=$WORDPRESS_PASSWORD --admin_email=$WORDPRESS_MAIL --path=/var/www/wordpress --url=$(minikube service wordpress --url)/wordpress --title=ft_services
+docker exec $wordpress_id wp config create --dbuser=$WORDPRESS_ADMIN --dbname=$DB_NAME --dbhost=$DB_HOST --dbpass=$WORDPRESS_PASSWORD --path=/var/www/wordpress --extra-php <<PHP
+define ('FORCE_SSL_ADMIN', true);
+PHP
+docker exec $wordpress_id wp core install --admin_user=$WORDPRESS_ADMIN --admin_password=$WORDPRESS_PASSWORD --admin_email=$WORDPRESS_MAIL --path=/var/www/wordpress --url=https://$(minikube service wordpress --url | cut -d/ -f3)/wordpress --title=ft_services
