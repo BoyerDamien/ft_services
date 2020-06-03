@@ -25,9 +25,11 @@ IMAGES=(
         )
 WORDPRESS_ADMIN='user'
 WORDPRESS_PASSWORD='password'
-WORDPRESS_MAIL='damienboyer45@gmail.com'
 DB_NAME='wordpress'
 DB_HOST='mysql'
+#CERT_NAME='ft_services_ssl'
+#KEY_FILE='./srcs/ssl/ft_services.key'
+#CERT_FILE='./srcs/ssl/ft_services.crt'
 
 
 minikube addons enable ingress
@@ -35,6 +37,8 @@ minikube addons enable ingress
 # Create volumes
 display_process_title "Creating volumes"
 kubectl apply -k ${WORKDIR}volumes/
+
+#kubectl create secret tls ${CERT_NAME} --key ${KEY_FILE} --cert ${CERT_FILE}
 
 # Build docker images
 display_process_title "Building docker images ... "
@@ -65,7 +69,5 @@ done
 display_process_title "Installation of wordpress"
 wordpress_id=$(docker ps | grep wordpress_wordpress | cut -d\  -f1)
 docker exec $wordpress_id wp core download --path=/var/www/wordpress
-docker exec $wordpress_id wp config create --dbuser=$WORDPRESS_ADMIN --dbname=$DB_NAME --dbhost=$DB_HOST --dbpass=$WORDPRESS_PASSWORD --path=/var/www/wordpress --extra-php <<PHP
-define ('FORCE_SSL_ADMIN', true);
-PHP
-docker exec $wordpress_id wp core install --admin_user=$WORDPRESS_ADMIN --admin_password=$WORDPRESS_PASSWORD --admin_email=$WORDPRESS_MAIL --path=/var/www/wordpress --url=https://$(minikube service wordpress --url | cut -d/ -f3)/wordpress --title=ft_services
+docker exec $wordpress_id wp config create --dbuser=$WORDPRESS_ADMIN --dbname=$DB_NAME --dbhost=$DB_HOST --dbpass=$WORDPRESS_PASSWORD --path=/var/www/wordpress
+docker exec $wordpress_id wp core install --admin_user=$WORDPRESS_ADMIN --admin_password=$WORDPRESS_PASSWORD --admin_email=info@example.com --path=/var/www/wordpress --url=http://$(minikube ip)/wordpress/ --title=ft_services --skip-email

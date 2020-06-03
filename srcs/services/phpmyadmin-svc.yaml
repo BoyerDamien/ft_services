@@ -7,7 +7,7 @@ spec:
   ports:
     - name: http
       port: 5000
-      targetPort: 443
+      targetPort: 80
       protocol: TCP
   selector:
     run: phpmyadmin

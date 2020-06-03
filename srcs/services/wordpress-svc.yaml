@@ -8,6 +8,6 @@ spec:
     - name: wordpress
       port: 5050
       protocol: TCP
-      targetPort: 443
+      targetPort: 80
   selector:
     run: wordpress
