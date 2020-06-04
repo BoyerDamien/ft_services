@@ -5,4 +5,5 @@ resources:
     - mysql-dep.yaml
     - wp-dep.yaml
     - pma-dep.yaml
+    - ftps-dep.yaml
 

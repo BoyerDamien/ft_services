@@ -22,6 +22,7 @@ IMAGES=(
             wordpress
             mysql
             phpmyadmin
+            ftps
         )
 WORDPRESS_ADMIN='user'
 WORDPRESS_PASSWORD='password'

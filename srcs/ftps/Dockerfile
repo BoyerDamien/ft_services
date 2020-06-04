@@ -25,7 +25,6 @@ RUN echo "background=NO" >> /etc/vsftpd/vsftpd.conf
 RUN mkdir -p /etc/ssl/private
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj '/C=FR/ST=75/L=Paris/O=42/CN=ft_services' \
 -keyout /etc/ssl/private/vsftpd.key -out /etc/ssl/certs/vsftpd.crt
-#RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/vsftpd.key -out /etc/ssl/certs/vsftpd.crt
 RUN echo "ssl_enable=YES" >> /etc/vsftpd/vsftpd.conf
 RUN echo "allow_anon_ssl=NO" >> /etc/vsftpd/vsftpd.conf
 RUN echo "force_local_data_ssl=YES" >> /etc/vsftpd/vsftpd.conf

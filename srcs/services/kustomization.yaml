@@ -3,3 +3,4 @@ resources:
   - mysql-svc.yaml
   - wordpress-svc.yaml
   - phpmyadmin-svc.yaml
+  - ftps-svc.yaml
