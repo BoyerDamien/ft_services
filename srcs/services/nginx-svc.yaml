@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: nginx
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
     - port: 22
       protocol: TCP
@@ -18,4 +18,4 @@ spec:
       targetPort: 80
       protocol: TCP
   selector:
-    server: nginx
+    run: nginx

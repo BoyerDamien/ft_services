@@ -3,11 +3,10 @@ kind: Service
 metadata:
   name: wordpress
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
     - name: wordpress
       port: 5050
       protocol: TCP
-      targetPort: 80
   selector:
     run: wordpress

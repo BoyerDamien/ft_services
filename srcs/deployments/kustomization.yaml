@@ -1,9 +1,11 @@
 resources:
-    - nginx-config-map.yaml
     - secret.yaml
-    - ingress-dep.yaml
+    - metallb-config-map.yaml
+    - nginx-config-map.yaml
     - mysql-dep.yaml
     - wp-dep.yaml
     - pma-dep.yaml
     - ftps-dep.yaml
+    - nginx-dep.yaml
+
 

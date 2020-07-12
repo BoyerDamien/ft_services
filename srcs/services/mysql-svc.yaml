@@ -5,7 +5,7 @@ metadata:
   labels:
     run: mysql
 spec:
-  type: NodePort
+  type: ClusterIP 
   ports:
     - name: mysql
       port: 3306

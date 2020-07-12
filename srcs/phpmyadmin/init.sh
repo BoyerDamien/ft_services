@@ -1,8 +1,9 @@
-#! /bin/sh
+#! /bin/bash
 
 if [ ! -d /var/www/phpmyadmin/tmp ];
 then
-    mkdir /usr/share/webapps/phpmyadmin/tmp
-    chmod 777 /usr/share/webapps/phpmyadmin/tmp
+    cp -rf /usr/share/webapps/phpmyadmin/* /var/www/phpmyadmin
+    cp /tmp/config.inc.php /var/www/phpmyadmin
+    chown -R www:www /var/www/phpmyadmin
+    chmod 644 /var/www/phpmyadmin/config.inc.php
 fi
-cd /usr/share/webapps/phpmyadmin/ && cp -rf * /var/www/phpmyadmin
