@@ -17,12 +17,12 @@ spec:
         - name: wordpress
           image: wordpress
           imagePullPolicy: Never
-          ports :
-          - name : http
-            containerPort : 5050
+          ports:
+            - name: http
+              containerPort: 5050
           volumeMounts:
-              - name: wp-claim
-                mountPath: /var/www/wordpress
+            - name: wp-claim
+              mountPath: /var/www/wordpress
           lifecycle:
             postStart:
               exec:
@@ -31,3 +31,4 @@ spec:
         - name: wp-claim
           persistentVolumeClaim:
             claimName: wp-claim
+

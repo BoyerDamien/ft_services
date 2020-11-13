@@ -37,7 +37,7 @@ fi
 if [[ $(uname) -eq "Darwin" ]]
 then 
 	minikube start --driver=virtualbox
-else [[ $(uname) -ne "Darwin" ]]
+else
 	minikube start --driver=docker
 fi
 
