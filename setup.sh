@@ -55,39 +55,24 @@ IMAGES=(
             nginx
             wordpress
             mysql
-            phpmyadmin
-            ftps
         )
-WORDPRESS_ADMIN='user'
-WORDPRESS_PASSWORD='password'
-DB_NAME='wordpress'
-DB_HOST='mysql'
 
 # Install MetalLB
+display_process_title "Installation of metallb"
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml
-# On first install only
 kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
-
-# Create volumes
-display_process_title "Creating volumes"
-kubectl apply -k ${WORKDIR}volumes/
 
 # Build docker images
 display_process_title "Building docker images ... "
 for image in ${IMAGES[*]}; do cd ${WORKDIR}${image} && docker build -t $image . && cd ../.. ; done
 
 # Create services
-display_process_title "Creating services"
-kubectl apply -k ${WORKDIR}services/
-
-# Create deployment
-display_process_title "Creating deployments"
-kubectl apply -k ${WORKDIR}deployments/
+display_process_title "Deployment in progress"
+kubectl apply -k ./srcs
 
 # Install wordpress
 display_process_title "Installation of wordpress"
-wordpress_id=$(docker ps | grep wordpress_wordpress | cut -d\  -f1)
 
 #docker exec $wordpress_id wp core install 	--admin_user=$WORDPRESS_ADMIN \
 #											--admin_password=$WORDPRESS_PASSWORD \

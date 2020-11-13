@@ -1,0 +1,5 @@
+resources:
+  - ./mysql-volume.yaml
+  - ./mysql-claim.yaml
+  - ./mysql-dep.yaml
+  - ./mysql-svc.yaml

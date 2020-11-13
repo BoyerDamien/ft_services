@@ -1,0 +1,14 @@
+secretGenerator:
+  - name: db-secret
+    literals:
+      - username=user
+      - password=password
+      - host=mysql
+      - name=wordpress
+
+commonLabels:
+  app: ft_services
+bases:
+  - ./metallb
+  - ./mysql
+  - ./wordpress

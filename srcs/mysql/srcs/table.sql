@@ -1,5 +1,5 @@
-CREATE USER 'user'@'%' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON wordpress.* TO 'user'@'%' WITH GRANT OPTION;
+CREATE USER '{DB_USER}'@'%' IDENTIFIED BY '{DB_PASSWORD}';
+GRANT ALL PRIVILEGES ON {DB_NAME}.* TO '{DB_USER}';@'%' WITH GRANT OPTION;
 
 
 -- --------------------------------------------------------
@@ -358,5 +358,5 @@ CREATE TABLE IF NOT EXISTS `pma__export_templates` (
   COMMENT='Saved export templates'
   DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
 
-GRANT ALL PRIVILEGES ON phpmyadmin.* TO 'user'@'%' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON phpmyadmin.* TO '{DB_USER}'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;

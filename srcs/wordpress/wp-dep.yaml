@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress
+  labels:
+    run: wordpress
+    app: ft_services
+spec:
+  selector:
+    matchLabels:
+      run: wordpress
+  template:
+    metadata:
+      labels:
+        run: wordpress
+    spec:
+      containers:
+        - name: wordpress
+          image: wordpress
+          imagePullPolicy: Never
+          env:
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: name
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: host
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: password
+          ports:
+            - name: http
+              containerPort: 9000
+          volumeMounts:
+            - name: wp-claim
+              mountPath: /var/www/wordpress
+          lifecycle:
+            postStart:
+              exec:
+                command: ["./init.sh"]
+        - name: nginx
+          image: nginx
+          imagePullPolicy: Never
+          ports:
+            - name: wordpress
+              containerPort: 5050
+          volumeMounts:
+            - name: wp-claim
+              mountPath: /var/www/wordpress
+            - name: wp-nginx-config-map
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+      volumes:
+        - name: wp-nginx-config-map
+          configMap:
+            name: wp-nginx-config-map
+        - name: wp-claim
+          persistentVolumeClaim:
+            claimName: wp-claim

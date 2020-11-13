@@ -1,0 +1,8 @@
+resources:
+  - ./nginx-dep.yaml
+  - ./nginx-svc.yaml
+
+configMapGenerator:
+  - name: nginx-config-map
+    files:
+      - nginx.conf

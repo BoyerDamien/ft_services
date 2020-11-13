@@ -19,5 +19,3 @@ spec:
       protocol: TCP
   selector:
     run: nginx
-  externalIPs:
-    - 192.168.99.103

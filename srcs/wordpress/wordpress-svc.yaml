@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: wordpress
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   ports:
     - name: wordpress
       port: 5050
