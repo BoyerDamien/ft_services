@@ -5,9 +5,10 @@ metadata:
   labels:
     run: mysql
 spec:
-  storageClassName: manual
+  storageClassName: mysql
   accessModes:
     - ReadWriteMany
   resources:
     requests:
       storage: 600Mi
+

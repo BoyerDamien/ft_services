@@ -4,6 +4,7 @@ metadata:
   name: phpmyadmin
   labels:
     run: phpmyadmin
+    app: ft_services
 spec:
   selector:
     matchLabels:
@@ -17,9 +18,9 @@ spec:
         - name: phpmyadmin
           image: phpmyadmin
           imagePullPolicy: Never
-          ports: 
-          - name : http
-            containerPort : 5000
+          ports:
+            - name: http
+              containerPort: 5000
           volumeMounts:
             - name: pma-claim
               mountPath: /var/www/phpmyadmin
@@ -27,7 +28,23 @@ spec:
             postStart:
               exec:
                 command: ["./init.sh"]
+        - name: nginx
+          image: nginx
+          imagePullPolicy: Never
+          ports:
+            - name: http
+              containerPort: 5050
+          volumeMounts:
+            - name: pma-claim
+              mountPath: /var/www/phpmyadmin
+            - name: pma-nginx-config-map
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+
       volumes:
         - name: pma-claim
           persistentVolumeClaim:
             claimName: pma-claim
+        - name: pma-nginx-config-map
+          configMap:
+            name: pma-nginx-config-map

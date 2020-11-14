@@ -12,3 +12,5 @@ bases:
   - ./metallb
   - ./mysql
   - ./wordpress
+  - ./phpmyadmin
+  - ./nginx

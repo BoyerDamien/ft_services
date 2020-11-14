@@ -39,8 +39,13 @@ spec:
                 secretKeyRef:
                   name: db-secret
                   key: password
+            - name: MINIKUBE_IP
+              valueFrom:
+                secretKeyRef:
+                  name: minikube-ip
+                  key: ip
           ports:
-            - name: http
+            - name: php-fpm
               containerPort: 9000
           volumeMounts:
             - name: wp-claim
@@ -53,7 +58,7 @@ spec:
           image: nginx
           imagePullPolicy: Never
           ports:
-            - name: wordpress
+            - name: http
               containerPort: 5050
           volumeMounts:
             - name: wp-claim

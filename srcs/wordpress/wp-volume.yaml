@@ -5,10 +5,11 @@ metadata:
   labels:
     run: wordpress
 spec:
-  storageClassName: manual
+  storageClassName: wordpress
   capacity:
     storage: 600Mi
   accessModes:
     - ReadWriteMany
   hostPath:
     path: "/mnt/wordpress"
+

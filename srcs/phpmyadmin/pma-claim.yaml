@@ -5,9 +5,10 @@ metadata:
   labels:
     run: phpmyadmin
 spec:
-  storageClassName: manual
+  storageClassName: pma
   accessModes:
     - ReadWriteMany
   resources:
     requests:
       storage: 600Mi
+

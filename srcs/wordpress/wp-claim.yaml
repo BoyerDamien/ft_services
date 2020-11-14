@@ -5,9 +5,10 @@ metadata:
   labels:
     run: wordpress
 spec:
-  storageClassName: manual
+  storageClassName: wordpress
   accessModes:
     - ReadWriteMany
   resources:
     requests:
       storage: 600Mi
+

@@ -3,9 +3,9 @@ kind: Service
 metadata:
   name: mysql
   labels:
-    run: mysql
+    app: ft_services
 spec:
-  type: ClusterIP 
+  type: ClusterIP
   ports:
     - name: mysql
       port: 3306

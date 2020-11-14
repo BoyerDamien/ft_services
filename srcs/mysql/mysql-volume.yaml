@@ -5,10 +5,11 @@ metadata:
   labels:
     run: mysql
 spec:
-  storageClassName: manual
+  storageClassName: mysql
   capacity:
     storage: 600Mi
   accessModes:
     - ReadWriteMany
   hostPath:
     path: "/mnt/data"
+

@@ -1,0 +1,10 @@
+resources:
+  - ./phpmyadmin-svc.yaml
+  - ./pma-dep.yaml
+  - ./pma-claim.yaml
+  - ./pma-volume.yaml
+
+configMapGenerator:
+  - name: pma-nginx-config-map
+    files:
+      - nginx.conf

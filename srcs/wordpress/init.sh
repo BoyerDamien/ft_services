@@ -8,4 +8,14 @@ then
 		--dbhost=$DB_HOST \
 		--dbpass=$DB_PASSWORD \
 		--path=/var/www/wordpress
+	
+	wp core install --path=/var/www/wordpress\
+		--url=$MINIKUBE_IP:30050\
+		--title=ft_services\
+		--admin_user=test\
+		--admin_password=test\
+		--admin_email=test@example.com
+
+	wp user create bob bob@example.com --role=author --user_pass=bob --path=/var/www/wordpress
+	wp user create tom tom@example.com --role=author --user_pass=tom --path=/var/www/wordpress
 fi

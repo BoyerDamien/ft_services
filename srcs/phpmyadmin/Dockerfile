@@ -5,7 +5,6 @@ FROM php-fpm
 #####################################################################################################
 
 RUN apk add wget bash phpmyadmin --no-cache
-RUN sed -i "s|listen = 127.0.0.1:9000|listen = 5000|g" /etc/php7/php-fpm.d/www.conf
 #####################################################################################################
 #                                Installation of phpmyadmin                                         #
 #####################################################################################################
@@ -13,6 +12,6 @@ RUN sed -i "s|listen = 127.0.0.1:9000|listen = 5000|g" /etc/php7/php-fpm.d/www.c
 ADD ./config.inc.php /tmp/config.inc.php
 ADD ./init.sh ./init.sh
 
-EXPOSE 5000
+EXPOSE 9000
 
 CMD php-fpm7 -F
