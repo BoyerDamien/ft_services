@@ -19,6 +19,8 @@ RUN rc-update add nginx default
 
 RUN rc-service nginx restart
 
+RUN echo "www:password" | chpasswd
+
 EXPOSE 80 443 22 5050 5000
 
-CMD nginx -g 'pid /tmp/nginx.pid; daemon off;'
+CMD rc-service sshd restart && nginx -g 'pid /tmp/nginx.pid; daemon off;'

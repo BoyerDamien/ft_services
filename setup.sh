@@ -70,6 +70,11 @@ kubectl create secret generic minikube-ip --from-literal=ip=$(minikube ip)
 cp ./srcs/nginx/nginx_example.conf ./srcs/nginx/nginx.conf
 sed -i "s|{MINIKUBE_IP}|$(minikube ip)|g" ./srcs/nginx/nginx.conf
 
+#init pma template
+cp ./srcs/phpmyadmin/config_example.inc.php ./srcs/phpmyadmin/config.inc.php
+sed -i "s|{MINIKUBE_IP}|$(minikube ip)|g" ./srcs/phpmyadmin/config.inc.php
+
+
 # Build docker images
 display_process_title "Building docker images ... "
 for image in ${IMAGES[*]}; do cd ${WORKDIR}${image} && docker build -t $image . && cd ../.. ; done
