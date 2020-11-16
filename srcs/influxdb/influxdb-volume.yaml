@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: influxdb-volume
+  labels:
+    run: influxdb
+spec:
+  storageClassName: influxdb
+  capacity:
+    storage: 600Mi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/mnt/influxdb"

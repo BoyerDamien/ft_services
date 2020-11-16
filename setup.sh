@@ -57,6 +57,7 @@ IMAGES=(
 	    phpmyadmin
             mysql
 	    ftps
+	    influxdb
         )
 
 # Install MetalLB && config

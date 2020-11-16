@@ -15,3 +15,4 @@ bases:
   - ./phpmyadmin
   - ./nginx
   - ./ftps
+  - ./influxdb

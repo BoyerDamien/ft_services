@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    run: mysql
+    app: ft_services
+spec:
+  selector:
+    matchLabels:
+      run: mysql
+  template:
+    metadata:
+      labels:
+        run: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql
+          imagePullPolicy: Never
+          env:
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: name
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: password
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: username
+          ports:
+            - name: tcp
+              containerPort: 3306
+          volumeMounts:
+            - name: mysql-claim
+              mountPath: /var/lib/mysql
+          lifecycle:
+            postStart:
+              exec:
+                command: ["./init.sh"]
+      volumes:
+        - name: mysql-claim
+          persistentVolumeClaim:
+            claimName: mysql-claim

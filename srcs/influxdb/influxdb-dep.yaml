@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influxdb
+  labels:
+    run: influxdb
+    app: ft_services
+spec:
+  selector:
+    matchLabels:
+      run: influxdb
+  template:
+    metadata:
+      labels:
+        run: influxdb
+    spec:
+      containers:
+        - name: influxdb
+          image: influxdb
+          imagePullPolicy: Never
+          env:
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: password
+            - name: MINIKUBE_IP
+              valueFrom:
+                secretKeyRef:
+                  name: minikube-ip
+                  key: ip
+          ports:
+            - name: influxdb
+              containerPort: 8086
+          volumeMounts:
+            - name: influxdb-claim
+              mountPath: /root/.influxdb
+      volumes:
+        - name: influxdb-claim
+          persistentVolumeClaim:
+            claimName: influxdb-claim

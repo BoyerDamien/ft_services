@@ -1,0 +1,5 @@
+resources:
+  - influxdb-volume.yaml
+  - influxdb-claim.yaml
+  - influxdb-dep.yaml
+  - influxdb-svc.yaml

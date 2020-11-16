@@ -27,9 +27,9 @@ spec:
             - containerPort: 30103
           volumeMounts:
             - name: wp-claim
-              mountPath: /var/www/wordpress
+              mountPath: /home/user/wordpress
             - name: pma-claim
-              mountPath: /var/www/phpmyadmin
+              mountPath: /home/user/phpmyadmin
           env:
             - name: MINIKUBE_IP
               valueFrom:
