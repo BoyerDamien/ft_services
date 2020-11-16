@@ -56,6 +56,7 @@ IMAGES=(
             wordpress
 	    phpmyadmin
             mysql
+	    ftps
         )
 
 # Install MetalLB && config
@@ -73,7 +74,6 @@ sed -i "s|{MINIKUBE_IP}|$(minikube ip)|g" ./srcs/nginx/nginx.conf
 #init pma template
 cp ./srcs/phpmyadmin/config_example.inc.php ./srcs/phpmyadmin/config.inc.php
 sed -i "s|{MINIKUBE_IP}|$(minikube ip)|g" ./srcs/phpmyadmin/config.inc.php
-
 
 # Build docker images
 display_process_title "Building docker images ... "

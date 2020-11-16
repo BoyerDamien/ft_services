@@ -1,0 +1,3 @@
+resources:
+  - ./ftps-dep.yaml
+  - ./ftps-svc.yaml

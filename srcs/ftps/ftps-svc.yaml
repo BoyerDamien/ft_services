@@ -2,11 +2,28 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ftps
+  labels:
+    app: ft_services
 spec:
-  type: ClusterIP 
+  type: LoadBalancer
   ports:
-    - name: ftps
+    - name: ftps-21
       port: 21
-      targetPort: 21
+      nodePort: 30021
+    - name: ftps-20
+      port: 20
+      nodePort: 30020
+    - name: ftps-30100
+      port: 30100
+      nodePort: 30100
+    - name: ftps-30101
+      port: 30101
+      nodePort: 30101
+    - name: ftps-30102
+      port: 30102
+      nodePort: 30102
+    - name: ftps-30103
+      port: 30103
+      nodePort: 30103
   selector:
-    run: ftp
+    run: ftps

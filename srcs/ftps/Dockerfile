@@ -3,6 +3,7 @@ FROM alpine
 VOLUME [ "/sys/fs/cgroup/" ]
 
 USER root
+ADD ./init.sh ./init.sh
 
 RUN apk update && apk upgrade
 RUN apk add vsftpd openssl --no-cache
@@ -14,10 +15,13 @@ RUN sed -i "s|#local_umask=077|local_umask=077|g" /etc/vsftpd/vsftpd.conf
 RUN echo "vsftpd_log_file=/proc/1/fd/1" >> /etc/vsftpd/vsftpd.conf
 RUN echo "ftpd_banner=Welcome ft_services ftps server" >> /etc/vsftpd/vsftpd.conf
 RUN echo "seccomp_sandbox=NO" >> /etc/vsftpd/vsftpd.conf
-RUN echo "pasv_enable=Yes" >> /etc/vsftpd/vsftpd.conf
-RUN echo "pasv_promiscuous=YES" >> /etc/vsftpd/vsftpd.conf
-RUN echo "pasv_address=172.17.0.2" >> /etc/vsftpd/vsftpd.conf
+RUN echo "pasv_enable=YES" >> /etc/vsftpd/vsftpd.conf
+RUN echo "pasv_promiscuous=NO" >> /etc/vsftpd/vsftpd.conf
 RUN echo "background=NO" >> /etc/vsftpd/vsftpd.conf
+RUN echo "pasv_min_port=30100" >> /etc/vsftpd/vsftpd.conf
+RUN echo "pasv_max_port=30103" >> /etc/vsftpd/vsftpd.conf
+RUN echo "port_promiscuous=NO" >> /etc/vsftpd/vsftpd.conf
+RUN echo "port_promiscuous=NO" >> /etc/vsftpd/vsftpd.conf
 
 ################################################################
 #                        SSL Configuration
@@ -37,11 +41,13 @@ RUN echo "ssl_ciphers=HIGH" >> /etc/vsftpd/vsftpd.conf
 RUN echo "rsa_cert_file=/etc/ssl/certs/vsftpd.crt" >> /etc/vsftpd/vsftpd.conf
 RUN echo "rsa_private_key_file=/etc/ssl/private/vsftpd.key" >> /etc/vsftpd/vsftpd.conf
 
+
 ################################################################
 #                        USER CREATION
 ################################################################
 RUN adduser -D user && passwd user -d 'password'
+RUN echo "user" >> /etc/vsftpd/vsftpd.userlist
 
-EXPOSE 21
+EXPOSE 20 21 30100-30103
 
-CMD vsftpd /etc/vsftpd/vsftpd.conf
+CMD ["./init.sh"]

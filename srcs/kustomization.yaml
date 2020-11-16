@@ -14,3 +14,4 @@ bases:
   - ./wordpress
   - ./phpmyadmin
   - ./nginx
+  - ./ftps
