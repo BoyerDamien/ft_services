@@ -29,18 +29,24 @@ spec:
                 secretKeyRef:
                   name: db-secret
                   key: password
-            - name: MINIKUBE_IP
-              valueFrom:
-                secretKeyRef:
-                  name: minikube-ip
-                  key: ip
+            - name: INFLUX_ORGANIZATION
+              value: "42"
+            - name: INFLUX_TOKEN
+              value: "test"
+            - name: INFLUX_BUCKET
+              value: ft_services
           ports:
             - name: influxdb
               containerPort: 8086
           volumeMounts:
             - name: influxdb-claim
-              mountPath: /root/.influxdb
+              mountPath: /root/.influxdbv2
+            - name: docker-host
+              mountPath: "/var/run/docker.sock"
       volumes:
         - name: influxdb-claim
           persistentVolumeClaim:
             claimName: influxdb-claim
+        - name: docker-host
+          hostPath:
+            path: /var/run/docker.sock
