@@ -9,7 +9,6 @@ spec:
     - name: influxdb
       port: 8086
       protocol: TCP
-      nodePort: 30086
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     run: influxdb

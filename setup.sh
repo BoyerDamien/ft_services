@@ -58,6 +58,7 @@ IMAGES=(
             mysql
 	    ftps
 	    influxdb
+	    grafana
         )
 
 # Install MetalLB && config

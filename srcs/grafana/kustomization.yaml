@@ -1,2 +1,10 @@
 resources:
-  - ./metallb-config-map.yaml
+  - ./grafana-dep.yaml
+  - ./grafana-svc.yaml
+  - ./grafana-claim.yaml
+  - ./grafana-volume.yaml
+
+configMapGenerator:
+  - name: grafana-config-map
+    files:
+      - ./ft_services.yaml

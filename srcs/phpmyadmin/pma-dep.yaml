@@ -40,7 +40,7 @@ spec:
             - name: pma-nginx-config-map
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
-
+      restartPolicy: Always
       volumes:
         - name: pma-claim
           persistentVolumeClaim:

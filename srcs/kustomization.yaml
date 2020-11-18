@@ -16,3 +16,4 @@ bases:
   - ./nginx
   - ./ftps
   - ./influxdb
+  - ./grafana

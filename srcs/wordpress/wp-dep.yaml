@@ -66,6 +66,7 @@ spec:
             - name: wp-nginx-config-map
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
+      restartPolicy: Always
       volumes:
         - name: wp-nginx-config-map
           configMap:

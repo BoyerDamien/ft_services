@@ -1,0 +1,15 @@
+apiVersion: 1
+
+datasources:
+  - name: ft_services
+    type: influxdb
+    access: proxy
+    url: http://influxdb:8086
+    editable: true
+    secureJsonData:
+      token: test
+    jsonData:
+      version: Flux
+      organization: "42"
+      defaultBucket: ft_services
+      tlsSkipVerify: true

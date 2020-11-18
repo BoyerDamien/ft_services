@@ -44,6 +44,7 @@ spec:
             postStart:
               exec:
                 command: ["./init.sh"]
+      restartPolicy: Always
       volumes:
         - name: mysql-claim
           persistentVolumeClaim:

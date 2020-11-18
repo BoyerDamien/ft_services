@@ -43,6 +43,7 @@ spec:
               mountPath: /root/.influxdbv2
             - name: docker-host
               mountPath: "/var/run/docker.sock"
+      restartPolicy: Always
       volumes:
         - name: influxdb-claim
           persistentVolumeClaim:

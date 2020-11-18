@@ -36,6 +36,7 @@ spec:
                 secretKeyRef:
                   name: minikube-ip
                   key: ip
+      restartPolicy: Always
       volumes:
         - name: wp-claim
           persistentVolumeClaim:

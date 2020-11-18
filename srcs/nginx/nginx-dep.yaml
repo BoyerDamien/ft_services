@@ -29,6 +29,7 @@ spec:
             - name: nginx-config-map
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
+      restartPolicy: Always
       volumes:
         - name: nginx-config-map
           configMap:
