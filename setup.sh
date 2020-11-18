@@ -92,7 +92,15 @@ sed -i "s|{MINIKUBE_IP}|$(minikube ip)|g" ./srcs/phpmyadmin/config.inc.php
 
 # Build docker images
 display_process_title "Building docker images ... "
-for image in ${IMAGES[*]}; do docker build -t ${image} ./srcs/${image}; done
+for image in ${IMAGES[*]}
+do 
+	docker build -t ${image} ./srcs/${image}; 
+	if [[ $? != 0 ]]
+	then
+		echor "Error: cannot build image for ${image}"
+		exit 1
+	fi
+done
 
 # Deployment
 display_process_title "Deployment in progress..."
