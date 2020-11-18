@@ -57,6 +57,8 @@ RUN sed -i "s|;*max_file_uploads =.*|max_file_uploads = 200|i" /etc/php7/php.ini
 RUN sed -i "s|;*post_max_size =.*|post_max_size = 100M|i" /etc/php7/php.ini
 RUN sed -i "s|;*cgi.fix_pathinfo=.*|cgi.fix_pathinfo= 0 |i" /etc/php7/php.ini
 
+RUN chown www:www -R /etc/php7
+RUN chown www:www -R /var/log/php7
 RUN openrc && touch /run/openrc/softlevel
 RUN rc-update add php-fpm7 default
-RUN rc-service php-fpm7 restart
+#RUN rc-service php-fpm7 restart

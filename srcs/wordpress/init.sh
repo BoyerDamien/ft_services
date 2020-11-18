@@ -1,6 +1,6 @@
 #! /bin/sh
 
-if [ ! -f /var/www/wordpress/wp-config.php ];
+if [ -d /var/www/wordpress && ! -f /var/www/wordpress/wp-config.php ];
 then
 	wp core download    --path=/var/www/wordpress
 	wp config create    --dbuser=$DB_USER \
