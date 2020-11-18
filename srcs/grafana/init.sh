@@ -1,6 +1,6 @@
 #! /bin/sh
 
-if [ ! -d /usr/share/grafana/public ]
+if [ ! -d /usr/share/grafana/data ]
 then
 	apk add --no-cache grafana --repository http://dl-3.alpinelinux.org/alpine/edge/testing/
 	mv /usr/sbin/grafana-server . && mv /usr/bin/grafana-cli .
