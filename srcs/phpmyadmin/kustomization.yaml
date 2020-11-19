@@ -8,3 +8,6 @@ configMapGenerator:
   - name: pma-nginx-config-map
     files:
       - nginx.conf
+  - name: pma-config-map
+    files:
+      - config.inc.php

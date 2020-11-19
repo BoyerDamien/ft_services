@@ -24,10 +24,9 @@ spec:
           volumeMounts:
             - name: pma-claim
               mountPath: /var/www/phpmyadmin
-          lifecycle:
-            postStart:
-              exec:
-                command: ["./init.sh"]
+            - name: pma-config-map
+              mountPath: /var/www/phpmyadmin/config.inc.php
+              subPath: config.inc.php
         - name: nginx
           image: nginx
           imagePullPolicy: Never
@@ -48,3 +47,6 @@ spec:
         - name: pma-nginx-config-map
           configMap:
             name: pma-nginx-config-map
+        - name: pma-config-map
+          configMap:
+            name: pma-config-map

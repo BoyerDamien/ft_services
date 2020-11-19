@@ -7,7 +7,6 @@ FROM php-fpm
 #####################################################################################################
 RUN apk update && apk upgrade
 RUN apk add --no-cache openrc curl php7-phar php7 mysql mysql-client
-ADD ./init.sh ./init.sh
 
 #####################################################################################################
 #                               Installation of wordpress                                           #
@@ -19,4 +18,6 @@ RUN wp cli update
 
 EXPOSE 9000
 
-CMD php-fpm7 -F
+ADD ./init.sh ./init.sh
+
+CMD ["./init.sh"]

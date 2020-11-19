@@ -4,14 +4,13 @@ FROM php-fpm
 #                                       Packages intalation                                         #
 #####################################################################################################
 
-RUN apk add wget bash phpmyadmin --no-cache
+RUN apk add wget bash --no-cache
 #####################################################################################################
 #                                Installation of phpmyadmin                                         #
 #####################################################################################################
 
-ADD ./config.inc.php /tmp/config.inc.php
 ADD ./init.sh ./init.sh
 
 EXPOSE 9000
 
-CMD php-fpm7 -F
+CMD ["./init.sh"]

@@ -38,7 +38,6 @@ $cfg['Servers'][$i]['AllowNoPassword'] = false;
 $cfg['Servers'][$i]['extension'] = 'mysqli';
 $cfg['AllowThirdPartyFraming'] = true;
 $cfg['TempDir'] = '/var/www/phpmyadmin/tmp';
-$cfg['PmaAbsoluteUri'] = 'https://192.168.99.187:30443/phpmyadmin/';
 
 /**
  * phpMyAdmin configuration storage settings.
