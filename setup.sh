@@ -110,8 +110,10 @@ kubectl apply -k ./srcs
 display_process_title "Services"
 kubectl get svc
 
-display_process_title "Pods"
-kubectl get pods
-
 display_process_title "Minikube ip"
 minikube ip
+
+display_process_title "Pods"
+kubectl get pods -w
+
+
