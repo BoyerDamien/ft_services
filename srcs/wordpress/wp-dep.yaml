@@ -50,6 +50,8 @@ spec:
           volumeMounts:
             - name: wp-claim
               mountPath: /var/www/wordpress
+            - name: minikube-hosts
+              mountPath: /var/www/hosts.txt
         - name: nginx
           image: nginx
           imagePullPolicy: Never
@@ -70,3 +72,6 @@ spec:
         - name: wp-claim
           persistentVolumeClaim:
             claimName: wp-claim
+        - name: minikube-hosts
+          hostPath:
+            path: /etc/hosts

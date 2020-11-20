@@ -2,6 +2,7 @@
 
 if [ ! -f /var/www/wordpress/wp-config.php ];
 then
+	MINIKUBE_IP=$(cat /var/www/hosts.txt | grep minikube | awk '{print $1}')
 	wp core download    --path=/var/www/wordpress
 	wp config create    --dbuser=$DB_USER \
 		--dbname=$DB_NAME \
@@ -10,7 +11,7 @@ then
 		--path=/var/www/wordpress
 	
 	wp core install --path=/var/www/wordpress\
-		--url=http://wordpress.default.svc.cluster.local:5050\
+		--url="http://$MINIKUBE_IP:30050"\
 		--title=ft_services\
 		--admin_user=test\
 		--admin_password=test\

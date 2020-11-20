@@ -41,7 +41,7 @@ then
 	display_process_title "Starting Minikube"
 	
 	# Start minikube
-	minikube start --driver=virtualbox\
+	minikube start --driver=docker\
 		       --memory=3000\
 		       --cpus=3\
 		       --disk-size=11000

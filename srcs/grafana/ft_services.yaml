@@ -4,7 +4,7 @@ datasources:
   - name: Ft_services
     type: influxdb
     access: proxy
-    url: http://influxdb:8086
+    url: http://influxdb.default.svc.cluster.local:8086
     editable: true
     secureJsonData:
       token: test
