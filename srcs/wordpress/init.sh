@@ -10,7 +10,7 @@ then
 		--path=/var/www/wordpress
 	
 	wp core install --path=/var/www/wordpress\
-		--url=$MINIKUBE_IP:30050\
+		--url=http://wordpress.default.svc.cluster.local:5050\
 		--title=ft_services\
 		--admin_user=test\
 		--admin_password=test\
