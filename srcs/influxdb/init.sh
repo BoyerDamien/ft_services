@@ -4,7 +4,7 @@ influxd & jobs
 
 if [ ! -f /root/.influxdbv2/configs ]
 then
-	sleep 10 && influx setup -u $DB_USER\
+	sleep 20 && influx setup -u $DB_USER\
 		-p $DB_PASSWORD\
 		-o $INFLUX_ORGANIZATION\
 		-b $INFLUX_BUCKET\

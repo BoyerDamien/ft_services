@@ -101,3 +101,7 @@ done
 # Deployment
 display_process_title "Deployment in progress..."
 kubectl apply -k ./srcs
+
+#Expose loadbalancer
+display_process_title "Expose loadbalancer"
+minikube tunel
