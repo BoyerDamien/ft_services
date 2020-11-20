@@ -6,7 +6,7 @@ VOLUME [ "/sys/fs/cgroup/" ]
 RUN apk update && apk upgrade
 RUN apk add --no-cache nginx openrc openssl openssh
 RUN adduser -D www
-ADD ./init.sh ./init.sh
+
 # ==========================================================================================
 #                                    Install SSL
 # ==========================================================================================
