@@ -30,12 +30,8 @@ spec:
               mountPath: /home/user/wordpress
             - name: pma-claim
               mountPath: /home/user/phpmyadmin
-          env:
-            - name: MINIKUBE_IP
-              valueFrom:
-                secretKeyRef:
-                  name: minikube-ip
-                  key: ip
+            - name: minikube-hosts
+              mountPath: /var/www/hosts.txt
       restartPolicy: Always
       volumes:
         - name: wp-claim
@@ -44,3 +40,7 @@ spec:
         - name: pma-claim
           persistentVolumeClaim:
             claimName: pma-claim
+        - name: minikube-hosts
+          hostPath:
+            path: /etc/hosts
+          

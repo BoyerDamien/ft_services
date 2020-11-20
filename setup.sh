@@ -104,4 +104,4 @@ kubectl apply -k ./srcs
 
 #Expose loadbalancer
 display_process_title "Expose loadbalancer"
-minikube tunel
+minikube tunnel
