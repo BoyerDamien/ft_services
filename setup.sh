@@ -37,9 +37,14 @@ fi
 
 if [[ ! -d ~/.minikube/machines/minikube ]]
 then
+
 	display_process_title "Starting Minikube"
+	
 	# Start minikube
-	minikube start --driver=virtualbox --cpus=6
+	minikube start --driver=virtualbox\
+		       --memory=3000\
+		       --cpus=3
+		       --disk-size=11000
 
 	# Check if minikube has started
 	if [[ $? != 0 ]]
