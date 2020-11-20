@@ -43,7 +43,7 @@ then
 	# Start minikube
 	minikube start --driver=virtualbox\
 		       --memory=3000\
-		       --cpus=3
+		       --cpus=3\
 		       --disk-size=11000
 
 	# Check if minikube has started
