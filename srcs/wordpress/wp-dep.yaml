@@ -39,14 +39,17 @@ spec:
                 secretKeyRef:
                   name: db-secret
                   key: password
+            - name: MINIKUBE_IP
+              valueFrom:
+                secretKeyRef:
+                  name: minikube-ip
+                  key: ip
           ports:
             - name: php-fpm
               containerPort: 9000
           volumeMounts:
             - name: wp-claim
               mountPath: /var/www/wordpress
-            - name: minikube-hosts
-              mountPath: /var/www/hosts.txt
         - name: nginx
           image: nginx
           imagePullPolicy: Never
@@ -67,6 +70,3 @@ spec:
         - name: wp-claim
           persistentVolumeClaim:
             claimName: wp-claim
-        - name: minikube-hosts
-          hostPath:
-            path: /etc/hosts

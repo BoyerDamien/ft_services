@@ -2,7 +2,6 @@
 
 if [ ! -f /var/www/wordpress/wp-config.php ];
 then
-	MINIKUBE_IP=$(cat /var/www/hosts.txt | grep minikube | awk '{print $1}')
 	wp core download    --path=/var/www/wordpress
 	wp config create    --dbuser=$DB_USER \
 		--dbname=$DB_NAME \
@@ -16,7 +15,7 @@ then
 		--admin_user=test\
 		--admin_password=test\
 		--admin_email=test@example.com
-
+	chown -R www:www /var/www/wordpress
 	wp user create bob bob@example.com --role=author --user_pass=bob --path=/var/www/wordpress
 	wp user create tom tom@example.com --role=author --user_pass=tom --path=/var/www/wordpress
 fi

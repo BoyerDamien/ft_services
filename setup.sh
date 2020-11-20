@@ -48,7 +48,7 @@ then
 	minikube start --driver=docker\
 		       --memory=3000\
 		       --cpus=3\
-		       --disk-size=11000
+		       --disk-size=21000
 
 	# Check if minikube has started
 	if [[ $? != 0 ]]
@@ -88,6 +88,7 @@ kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manife
 
 display_process_title "Create some important secrets"
 kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
+kubectl create secret generic minikube-ip --from-literal=ip="$(minikube ip)"
 
 # Build docker images
 display_process_title "Building docker images ... "
@@ -106,5 +107,11 @@ display_process_title "Deployment in progress..."
 kubectl apply -k ./srcs
 
 #Expose loadbalancer
-display_process_title "Expose loadbalancer"
-minikube tunnel
+display_process_title "Services"
+kubectl get svc
+
+display_process_title "Pods"
+kubectl get pods
+
+display_process_title "Minikube ip"
+minikube ip
